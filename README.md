@@ -1,3 +1,3 @@
 # utils
 
-Various utility classes.
+Various general-purpose utility classes.
