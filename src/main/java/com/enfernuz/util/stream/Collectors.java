@@ -184,7 +184,7 @@ public final class Collectors {
     public static <T, R, C, V> Collector<T, ?, Table<R, C, V>> toTable(
             Function<? super T, R> rowMapper, 
             Function<? super T, C> columnMapper,
-            BiFunction<? super R, ? super C, V> valueMapper,
+            Function<? super T, V> valueMapper,
             Supplier<Table<R, C, V>> tableFactory) throws NullPointerException {
         
         requireNonNull(rowMapper);
@@ -196,7 +196,7 @@ public final class Collectors {
                 (table, t) -> {
                     final R row = rowMapper.apply(t);
                     final C column = columnMapper.apply(t);
-                    final V value = valueMapper.apply(row, column);
+                    final V value = valueMapper.apply(t);
                     table.put(row, column, value);
                 }, 
                 (table1, table2) -> { table1.putAll(table2); return table1; }, 
